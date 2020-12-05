@@ -16,13 +16,18 @@
     mov cx, 6h
     output:
         mov bl, A[si]
-        add bl, B[si]
+        sub bl, B[si]
 
+        ;check if the result is negative
         jnc nocarry
-        mov dl, 31h
+        ;print '-' character
+        mov dl, 2dh
         mov ah, 02h
         int 21h
         
+        ;2's complement
+        not bl
+        inc bl
         nocarry:
             mov tempcx, cx
             mov cx, 2h
